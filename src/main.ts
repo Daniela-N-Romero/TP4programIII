@@ -1,8 +1,48 @@
+import type { IUser } from "./types/IUser.ts";
 import { getUser } from "./utils/localStorage.ts"
+import { rolRedirect , logout } from "./utils/auth.ts";
 
-const autoRedirect = () => {
+
+const greeting = document.getElementById("user-email")
+const sessionNotice = document.getElementById("session-notice")
+const guestSession = document.getElementById("guest-section")
+const btnContinue = document.getElementById("btn-continue")
+const btnLogout = document.getElementById("btn-logout")
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
     const user = getUser();
-    if (!user) return;
+    if (user)  {
+        const parsedUser: IUser = JSON.parse(user);
+        displaySessionNotice(true, parsedUser.email );
+       
+        btnContinue?.addEventListener("click", ()=>{
+            rolRedirect(parsedUser.role);
+        })
+         btnLogout?.addEventListener("click", ()=>{
+            logout();
+        })
+    } 
+    else{displaySessionNotice(false);}
+
     
 
-}
+});
+
+const displaySessionNotice = (flag:boolean, email?:string) =>{
+    if (flag)  {
+        if (sessionNotice && greeting) {
+            sessionNotice.style.display = "block";
+            email? greeting.innerHTML= email : ''}          
+    } 
+    else {
+        if (guestSession) guestSession.style.display = "block";
+    }
+};
+
+
+
+
+
+

@@ -2,7 +2,7 @@ import type { IUser} from "../types/IUser";
 import type { IUserStorage} from "../types/IUserStorage";
 
 
-export const saveUser = (user: IUser) => {
+export const loginUser = (user: IUser) => {
   const parseUser = JSON.stringify(user);
   localStorage.setItem("userData", parseUser);
 };
@@ -18,3 +18,8 @@ export const getUsers = (): IUserStorage[] => {
     return users? JSON.parse(users) : [] 
 }
 
+export const saveUser = (user: IUserStorage) => {
+  const users = getUsers();
+  users.push(user)
+  localStorage.setItem("users", JSON.stringify(users));
+};

@@ -31,3 +31,12 @@ export const logout = () => {
   removeUser();
   navigate("/src/pages/auth/login/login.html");
 };
+
+export const rolRedirect = (rol: string)=>{
+  if (rol === "admin") {
+    navigate("/src/pages/admin/home/home.html");
+  } else if (rol === "client") {
+    navigate("/src/pages/client/home/home.html");
+  }
+
+}
