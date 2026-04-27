@@ -27,7 +27,7 @@ form?.addEventListener("submit", (e:SubmitEvent)=>{
         const { password, id, ...userToLog } = newUser;
         loginUser(userToLog)
         alert("Usuario Registrado. Redirigiendo al home...")
-        setTimeout(() => rolRedirect(newUser.role), 3000)
+        setTimeout(() => rolRedirect(newUser.role), 1500)
     }else{
         alert("Email no disponible.")
     }

@@ -14,18 +14,25 @@ form.addEventListener("submit", (e: SubmitEvent) => {
   const valuePassword = inputPassword.value;
 
   const users = getUsers();
-  const usuarioEncontrado = users.find((u) => u.email === valueEmail && u.password === valuePassword);
-  
-  if (usuarioEncontrado) {
-      const rol = usuarioEncontrado.role as Rol
+  const usuarioExistente = users.find((u) => u.email === valueEmail);
+
+  if (!usuarioExistente) {
+      alert("El email ingresado no existe.")
+      inputPassword.value = "";
+      return; 
+  }
+
+  if (usuarioExistente.password === valuePassword) {
       const user: IUser = {
-        email: valueEmail,
-        role: rol,
+        email: usuarioExistente.email,
+        role: usuarioExistente.role as Rol,
         loggedIn: true,
       };
 
       loginUser(user);
       rolRedirect(user.role);
+  } else {
+      alert("Contraseña incorrecta. Por favor, intenta de nuevo.");
+      inputPassword.value = "";
   }
-
 });

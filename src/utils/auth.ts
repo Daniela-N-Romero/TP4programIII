@@ -15,16 +15,17 @@ export const checkAuhtUser = (
   if (!user) {
     console.log("no existe en local");
     navigate(redireccion1);
-    return;
+    return false;
   } else {
     
     const parseUser: IUser = JSON.parse(user);
     if (parseUser.role !== rol) {
       console.log("existe pero no tiene el rol necesario");
       navigate(redireccion2);
-      return;
+      return false;
     }
   }
+  return true;
 };
 
 export const logout = () => {
